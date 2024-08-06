@@ -36,7 +36,7 @@ export const register = async (req, res, next) => {
 
     await sendEmail(
       email,
-      "The God Father: Email Verification",
+      "The Evallo: Email Verification",
       `Verify your mail With OTP: <b>${OTP}</b>`
     );
 
@@ -233,7 +233,7 @@ export const sendOtp = async (req, res, next) => {
 
     await sendEmail(
       email,
-      "The God Father: Email Verification",
+      "The Evallo: Email Verification",
       `Verify your mail With OTP: <b>${OTP}</b>`
     );
 

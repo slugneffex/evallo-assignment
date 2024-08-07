@@ -5,17 +5,18 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "#firebase/firebase.config.js";
 import PropTypes from "prop-types";
 import { googleLogin } from "#api/auth.req";
-import { setAuthToken } from "#api/index";
 import { useState } from "react";
 import LoadingPage from "#components/loading/loading";
+import { useNavigate } from "react-router-dom";
 const googleProvider = new GoogleAuthProvider();
 
 ConnectedGoogleLoginButton.propTypes = {
   pushFlash: PropTypes.func,
   setCurrentUser: PropTypes.func,
 };
-function ConnectedGoogleLoginButton({ pushFlash, setCurrentUser, className }) {
+function ConnectedGoogleLoginButton({ className }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const navigate = useNavigate();
   const handleGoogleLogin = async () => {
     setIsPopupOpen(true);
     try {
@@ -30,31 +31,17 @@ function ConnectedGoogleLoginButton({ pushFlash, setCurrentUser, className }) {
             displayName: user?.displayName,
           });
           if (data?.user) {
-            setCurrentUser(data?.user);
-            setAuthToken(data?.accessToken);
-            pushFlash({
-              type: "success",
-              message: "Welcome to Loger.ma",
+            navigate("/", {
+              replace: true,
             });
+            localStorage.setItem("USER", JSON.stringify(user));
           }
         } catch (apiGoogleLoginError) {
           console.log({ apiGoogleLoginError });
-          pushFlash({
-            type: "error",
-            message: "Something went wrong, please try again.",
-          });
         }
       }
     } catch (googleError) {
       console.error({ googleError });
-      // pushFlash({
-      //   message:
-      //     googleError?.response?.data?.message ||
-      //     "Something went wrong, please try again.",
-      //   type: "error",
-      // });
-    } finally {
-      setIsPopupOpen(false);
     }
   };
   return (
@@ -71,9 +58,5 @@ function ConnectedGoogleLoginButton({ pushFlash, setCurrentUser, className }) {
     </button>
   );
 }
-
-// const GoogleLoginButton = connect(null, { pushFlash, setCurrentUser })(
-//   ConnectedGoogleLoginButton
-// );
 
 export default ConnectedGoogleLoginButton;

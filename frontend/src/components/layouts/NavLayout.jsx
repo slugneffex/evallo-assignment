@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import { LuLayoutDashboard } from "react-icons/lu";
 import { useCallback, useContext } from "react";
 import { AUTH_STATE, DesignContext } from "../../contexts/DesignIndexContext";
 import { Link, Outlet, useNavigate } from "react-router-dom";
@@ -8,7 +7,7 @@ import Button from "../Button";
 import { useEffect } from "react";
 import { authApi } from "./../../api";
 import { toast } from "react-hot-toast";
-import { IoCalendarClearOutline } from "react-icons/io5";
+import { IoCalendarClearOutline, IoNotifications } from "react-icons/io5";
 
 const NavLayout = () => {
   const { designIndex, authState, handleToggle, handleAuthState } =
@@ -19,8 +18,8 @@ const NavLayout = () => {
   const checkUserAuth = useCallback(() => {
     let user = localStorage.getItem("USER");
     user = user && JSON.parse(user);
-
-    if (user?._id) return handleAuthState(AUTH_STATE.AUTHENTIC);
+   
+    if (user?.uid) return handleAuthState(AUTH_STATE.AUTHENTIC);
 
     handleAuthState(AUTH_STATE.UN_AUTHENTIC);
     navigate("/auth", {
@@ -90,7 +89,7 @@ const NavLayout = () => {
               <span className="w-6 h-6 bg-blue-300 -z-10 absolute rounded-full animate-ping"></span>
               {designIndex + 1}
             </span>
-            <LuLayoutDashboard />
+            <IoNotifications />
           </button>
 
           <div className="ml-10">

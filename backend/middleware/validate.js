@@ -1,11 +1,9 @@
 import { validationResult } from "express-validator";
-import { imageUpload } from "./upload.middleware.js";
 
 export function validateReq(req, res, next) {
   const result = validationResult(req);
   if (result.isEmpty() && !req.fileError) return next();
 
-  if (req.file) imageUpload._delete(req.file.filename);
 
   let errors = {};
 

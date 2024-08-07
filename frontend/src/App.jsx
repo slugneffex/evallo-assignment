@@ -2,14 +2,8 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Auth from "./pages/Auth";
 import Home from "./pages/Home";
-import EditProfile from "./pages/EditProfile";
 import NavLayout from "./components/layouts/NavLayout";
 import { DesignProvider } from "./contexts/DesignIndexContext";
-import BasicDetails from "./components/screens/EditProfile/BasicDetails";
-import ContactDetails from "./components/screens/EditProfile/ContactDetails";
-import PastExperience from "./components/screens/EditProfile/PastExperience";
-import QualificationForm from "./components/screens/EditProfile/Qualification";
-import SkillsForm from "./components/screens/EditProfile/Skills";
 import { Toaster } from "react-hot-toast";
 
 function App() {

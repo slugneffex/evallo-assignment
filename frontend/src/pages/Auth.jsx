@@ -1,5 +1,5 @@
 import getRandomNumber from "../utils/getRandomNumber";
-import AuthForm from "../components/screens/AuthForm";
+import GoogleLoginButton from "#components/google-login-button/google-login-button";
 
 const Gallery = [
   "https://eviet.edu.vn/uploads/57(1)(1).jpg",
@@ -9,8 +9,11 @@ const Gallery = [
 
 const Register = () => {
   return (
-    <div className="w-full h-screen flex flex-row-reverse">
-      <AuthForm />
+    <div className="w-full h-screen relative">
+      <div className="absolute top-0 right-0  m-5 flex flex-col items-center">
+        <GoogleLoginButton className={"bg-white"} />
+        <p className="my-2 font-bold">Login / SignUp</p>
+      </div>
 
       <div className="bg-green-400 flex-1">
         <img

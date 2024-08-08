@@ -1,26 +1,41 @@
-import { DesignContext } from "../contexts/DesignIndexContext";
-import { useContext, useEffect, useState } from "react";
-import { authApi } from "../api";
+import { useEffect, useState } from "react";
+import api from "../api";
 import { toast } from "react-hot-toast";
+import ManageCalendarEvent from "./ManageCalendar";
 
 const Home = () => {
-  const { designIndex } = useContext(DesignContext);
-  const [profile, setProfile] = useState();
+  const [events, setEvents] = useState([
+    {
+      name: "event",
+      _id: "hello",
+    },
+  ]);
+  const [isFetching, setISFetching] = useState(false);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const {
-  //         data: { data },
-  //       } = await authApi.get("/profile");
-  //       setProfile(data);
-  //     } catch (error) {
-  //       toast.error("Could not fetch data");
-  //     }
-  //   })();
-  // }, []);
+  const getEvents = async () => {
+    try {
+      setISFetching(true);
+      const {
+        data: { data },
+      } = await api.get("/event/events");
 
-  return <>Home</>;
+      // setEvents(data);
+      setISFetching(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      toast.error("Could not fetch data");
+    }
+  };
+  useEffect(() => {
+    getEvents();
+  }, []);
+
+  return (
+    <>
+      {" "}
+      <ManageCalendarEvent events={events} isFetching={isFetching} getEvents={getEvents} />{" "}
+    </>
+  );
 };
 
 export default Home;

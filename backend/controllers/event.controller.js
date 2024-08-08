@@ -1,4 +1,4 @@
-import Event from "../models/event.model";
+import Event from "../models/event.model.js";
 import {
   createGoogleCalendarEvent,
   updateGoogleCalendarEvent,
@@ -22,8 +22,11 @@ export const createEvent = async (req, res) => {
 //get
 export const getEvent = async (req, res) => {
   try {
-    const events = await Event.find({ userId: req.params.userId });
-    res.status(200).send(events);
+    const events = await Event.find({ userId: req.user._id });
+    res.status(200).json({
+      success: true,
+      data: events,
+    });
   } catch (error) {
     res.status(500).send(error);
   }

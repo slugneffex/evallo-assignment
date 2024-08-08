@@ -20,3 +20,11 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+/* table vertical lines */
+.data-table td {
+  @apply !border-b !border-gray-300;
+}
+.data-table thead tr {
+  @apply bg-[#e3e3e386];
+}

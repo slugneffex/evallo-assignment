@@ -9,7 +9,7 @@ const isUser = async (req, res, next) => {
     try {
       const payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
-      const user = await User.findOne({ email: payload.email }).lean();
+      const user = await User.findOne({ _id: payload._id }).lean();
 
       req.user = user;
     } catch (err) {

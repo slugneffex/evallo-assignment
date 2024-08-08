@@ -11,7 +11,7 @@ import {
 router.post("/events", createEvent);
 
 // Get all events for a user
-router.get("/events/:userId", getEvent);
+router.get("/events", getEvent);
 
 // Update event
 router.put("/events/:id", updateEvent);

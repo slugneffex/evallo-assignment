@@ -5,18 +5,20 @@ import {
   getEvent,
   updateEvent,
   deleteEvent,
+  getParticularEvent,
 } from "../controllers/event.controller.js";
 
 // Create event
-router.post("/events", createEvent);
+router.post("/", createEvent);
 
 // Get all events for a user
 router.get("/events", getEvent);
+router.get("/:id", getParticularEvent);
 
 // Update event
-router.put("/events/:id", updateEvent);
+router.put("/:id", updateEvent);
 
 // Delete event
-router.delete("/events/:id", deleteEvent);
+router.delete("/:id", deleteEvent);
 
 export default router;

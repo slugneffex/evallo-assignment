@@ -4,12 +4,7 @@ import { toast } from "react-hot-toast";
 import ManageCalendarEvent from "./ManageCalendar";
 
 const Home = () => {
-  const [events, setEvents] = useState([
-    {
-      name: "event",
-      _id: "hello",
-    },
-  ]);
+  const [events, setEvents] = useState([]);
   const [isFetching, setISFetching] = useState(false);
 
   const getEvents = async () => {
@@ -19,7 +14,7 @@ const Home = () => {
         data: { data },
       } = await api.get("/event/events");
 
-      // setEvents(data);
+      setEvents(data);
       setISFetching(false);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -33,7 +28,11 @@ const Home = () => {
   return (
     <>
       {" "}
-      <ManageCalendarEvent events={events} isFetching={isFetching} getEvents={getEvents} />{" "}
+      <ManageCalendarEvent
+        events={events}
+        isFetching={isFetching}
+        getEvents={getEvents}
+      />{" "}
     </>
   );
 };

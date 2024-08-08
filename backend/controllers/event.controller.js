@@ -8,12 +8,12 @@ import {
 //create
 export const createEvent = async (req, res) => {
   try {
-    const event = new Event(req.body);
-    await event.save();
+    const event = await Event.create({ ...req.body, userId: req.user._id });
 
-    // Sync with Google Calendar
-    const googleEvent = await createGoogleCalendarEvent(event);
-    res.status(201).send({ event, googleEvent });
+    res.status(201).json({
+      success: true,
+      data: event,
+    });
   } catch (error) {
     res.status(400).send(error);
   }
@@ -32,6 +32,18 @@ export const getEvent = async (req, res) => {
   }
 };
 
+export const getParticularEvent = async (req, res) => {
+  try {
+    const events = await Event.findOne({ _id: req.params.id });
+    res.status(200).json({
+      success: true,
+      data: events,
+    });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 //update
 export const updateEvent = async (req, res) => {
   try {
@@ -39,12 +51,13 @@ export const updateEvent = async (req, res) => {
       new: true,
     });
     if (!event) {
-      return res.status(404).send({ message: "Event not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Event not found" });
     }
 
     // Sync with Google Calendar
-    const googleEvent = await updateGoogleCalendarEvent(event);
-    res.status(200).send({ event, googleEvent });
+    res.status(200).json({ success: true, data: event });
   } catch (error) {
     res.status(400).send(error);
   }
@@ -59,7 +72,7 @@ export const deleteEvent = async (req, res) => {
     }
 
     // Sync with Google Calendar
-    await deleteGoogleCalendarEvent(event.googleEventId);
+    // await deleteGoogleCalendarEvent(event.googleEventId);
     res.status(200).send({ message: "Event deleted" });
   } catch (error) {
     res.status(500).send(error);

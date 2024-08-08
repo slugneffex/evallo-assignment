@@ -18,7 +18,7 @@ const NavLayout = () => {
   const checkUserAuth = useCallback(() => {
     let user = localStorage.getItem("USER");
     user = user && JSON.parse(user);
-   
+
     if (user?.uid) return handleAuthState(AUTH_STATE.AUTHENTIC);
 
     handleAuthState(AUTH_STATE.UN_AUTHENTIC);
@@ -75,9 +75,9 @@ const NavLayout = () => {
           </button>
 
           <button title={"Edit Profile"} className="text-[1.75rem]">
-            {/* <Link to={"/edit/basic"}> */}
-            <IoCalendarClearOutline />
-            {/* </Link> */}
+            <Link to={"/event/calendar"}>
+              <IoCalendarClearOutline />
+            </Link>
           </button>
 
           <button

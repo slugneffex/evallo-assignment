@@ -20,6 +20,7 @@ const EventForm = () => {
 
   const getParticularEvents = async () => {
     try {
+      if (!id) return;
       setISFetching(true);
       const {
         data: { data },
@@ -54,8 +55,8 @@ const EventForm = () => {
       }
     } else {
       try {
-        console.log({data});
-        
+        console.log({ data });
+
         const formattedData = {
           ...data,
           participants: data?.participants?.split(",").map((p) => p.trim()),

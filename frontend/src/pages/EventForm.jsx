@@ -15,7 +15,6 @@ const EventForm = () => {
     handleSubmit,
     formState: { errors },
     reset,
-    setValue,
   } = useForm({});
 
   const getParticularEvents = async () => {

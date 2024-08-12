@@ -13,6 +13,9 @@ router.post("/", createEvent);
 
 // Get all events for a user
 router.get("/events", getEvent);
+
+
+// Get all events for a user
 router.get("/:id", getParticularEvent);
 
 // Update event
